@@ -1,16 +1,19 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {DATA, Item} from "../data";
 
 interface TabProps {
     item: Item
+    onTabPress: () => void
 }
 
-const Tab = React.forwardRef<any, TabProps>(({item}, ref) => {
+const Tab = React.forwardRef<any, TabProps>(({item, onTabPress}, ref) => {
     return (
-        <View ref={ref} style={styles.container}>
-            <Text style={styles.title}>{item.title}</Text>
-        </View>
+        <TouchableOpacity onPress={onTabPress}>
+            <View ref={ref} style={styles.container}>
+                <Text style={styles.title}>{item.title}</Text>
+            </View>
+        </TouchableOpacity>
     );
 });
 

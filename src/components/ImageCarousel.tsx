@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Animated, Image, Dimensions} from 'react-native';
+import {StyleSheet, View, Animated, Image, Dimensions, FlatList} from 'react-native';
 import {DATA} from "../data";
 
 const {width, height} = Dimensions.get('screen')
@@ -8,9 +8,10 @@ interface ImageCarouselProps {
     scrollX: Animated.Value
 }
 
-const ImageCarousel: React.FC<ImageCarouselProps> = ({scrollX}) => {
+const ImageCarousel = React.forwardRef<FlatList, ImageCarouselProps>(({scrollX}, ref) => {
     return (
         <Animated.FlatList
+            ref={ref}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
@@ -34,7 +35,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({scrollX}) => {
                 )
             }}
         />);
-};
+});
 
 const styles = StyleSheet.create({
     images: {

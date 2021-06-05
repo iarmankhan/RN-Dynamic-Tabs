@@ -7,10 +7,11 @@ import Indicator, {Measure} from "./Indicator";
 const {width} = Dimensions.get('screen')
 
 interface TabsProps {
-    scrollX: Animated.Value
+    scrollX: Animated.Value,
+    onTabPress: (itemIndex: number) => void
 }
 
-const Tabs: React.FC<TabsProps> = ({scrollX}) => {
+const Tabs: React.FC<TabsProps> = ({scrollX, onTabPress}) => {
     const containerRef = useRef(null);
     const [measures, setMeasures] = useState<Measure[]>([]);
 
@@ -35,7 +36,14 @@ const Tabs: React.FC<TabsProps> = ({scrollX}) => {
 
     return <View style={styles.container}>
         <View ref={containerRef} style={styles.tabs}>
-            {DATA.map(item => <Tab key={item.key} item={item} ref={item.ref}/>)}
+            {DATA.map((item, index) => (
+                <Tab
+                    key={item.key}
+                    item={item}
+                    ref={item.ref}
+                    onTabPress={() => onTabPress(index)}
+                />
+            ))}
         </View>
         {measures.length > 0 && <Indicator scrollX={scrollX} measures={measures}/>}
     </View>;

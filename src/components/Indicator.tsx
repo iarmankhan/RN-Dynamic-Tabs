@@ -23,7 +23,6 @@ const Indicator: React.FC<IndicatorProps> = ({scrollX, measures}) => {
         outputRange: measures.map(m => m.x),
     })
 
-    console.log(indicatorWidth)
     return (
         <Animated.View
             style={[
