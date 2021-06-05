@@ -2,6 +2,7 @@ import {StatusBar} from 'expo-status-bar';
 import React, {useRef} from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
 import ImageCarousel from "./src/components/ImageCarousel";
+import Tabs from "./src/components/Tabs";
 
 export default function App() {
     const scrollX = useRef(new Animated.Value(0)).current
@@ -9,6 +10,7 @@ export default function App() {
         <View style={styles.container}>
             <StatusBar hidden/>
             <ImageCarousel scrollX={scrollX}/>
+            <Tabs scrollX={scrollX} />
         </View>
     );
 }
