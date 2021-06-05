@@ -1,3 +1,6 @@
+import React from "react";
+import {View} from "react-native";
+
 const images: Record<string, string> = {
     man:
         'https://images.pexels.com/photos/3147528/pexels-photo-3147528.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
@@ -15,10 +18,12 @@ export type Item = {
     key: string,
     title: string,
     image: string,
+    ref: React.RefObject<View>
 }
 
 export const DATA: Item[] = Object.keys(images).map((i) => ({
     key: i,
     title: i,
     image: images[i],
+    ref: React.createRef<View>()
 }));

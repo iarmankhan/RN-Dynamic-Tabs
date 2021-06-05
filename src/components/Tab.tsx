@@ -6,13 +6,13 @@ interface TabProps {
     item: Item
 }
 
-const Tab: React.FC<TabProps> = ({item}) => {
+const Tab = React.forwardRef<any, TabProps>(({item}, ref) => {
     return (
-        <View style={styles.container}>
+        <View ref={ref} style={styles.container}>
             <Text style={styles.title}>{item.title}</Text>
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {},

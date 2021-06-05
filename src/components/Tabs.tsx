@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Animated, Dimensions, StyleSheet, View} from 'react-native';
 import {DATA} from "../data";
 import Tab from "./Tab";
+import Indicator, {Measure} from "./Indicator";
 
 const {width} = Dimensions.get('screen')
 
@@ -10,11 +11,33 @@ interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = ({scrollX}) => {
+    const containerRef = useRef<View>();
+    const [measures, setMeasures] = useState<Measure[]>([]);
+
+    useEffect(() => {
+        const m = [];
+        DATA.forEach(item => {
+            item.ref.current?.measureLayout(
+                containerRef.current,
+                (x, y, width, height) => {
+                    m.push({x, y, width, height})
+
+                    if(m.length === DATA.length){
+                        setMeasures(m)
+                    }
+                },
+                () => {
+                    console.log("errors")
+                }
+            )
+        })
+    }, [])
 
     return <View style={styles.container}>
-        <View style={styles.tabs}>
-            {DATA.map(item => <Tab key={item.key} item={item} />)}
+        <View ref={containerRef} style={styles.tabs}>
+            {DATA.map(item => <Tab key={item.key} item={item} ref={item.ref} />)}
         </View>
+        {measures.length > 0 && <Indicator scrollX={scrollX} measures={measures} />}
     </View>;
 };
 
