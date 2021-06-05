@@ -1,5 +1,4 @@
 import React from "react";
-import {View} from "react-native";
 
 const images: Record<string, string> = {
     man:
@@ -18,12 +17,12 @@ export type Item = {
     key: string,
     title: string,
     image: string,
-    ref: React.RefObject<View>
+    ref: React.RefObject<any>
 }
 
 export const DATA: Item[] = Object.keys(images).map((i) => ({
     key: i,
     title: i,
     image: images[i],
-    ref: React.createRef<View>()
+    ref: React.createRef()
 }));

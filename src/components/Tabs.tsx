@@ -11,18 +11,18 @@ interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = ({scrollX}) => {
-    const containerRef = useRef<View>();
+    const containerRef = useRef(null);
     const [measures, setMeasures] = useState<Measure[]>([]);
 
     useEffect(() => {
-        const m = [];
+        const m: Measure[] = [];
         DATA.forEach(item => {
             item.ref.current?.measureLayout(
                 containerRef.current,
-                (x, y, width, height) => {
+                (x: number, y: number, width: number, height: number) => {
                     m.push({x, y, width, height})
 
-                    if(m.length === DATA.length){
+                    if (m.length === DATA.length) {
                         setMeasures(m)
                     }
                 },
@@ -31,13 +31,13 @@ const Tabs: React.FC<TabsProps> = ({scrollX}) => {
                 }
             )
         })
-    }, [])
+    }, [containerRef.current])
 
     return <View style={styles.container}>
         <View ref={containerRef} style={styles.tabs}>
-            {DATA.map(item => <Tab key={item.key} item={item} ref={item.ref} />)}
+            {DATA.map(item => <Tab key={item.key} item={item} ref={item.ref}/>)}
         </View>
-        {measures.length > 0 && <Indicator scrollX={scrollX} measures={measures} />}
+        {measures.length > 0 && <Indicator scrollX={scrollX} measures={measures}/>}
     </View>;
 };
 
